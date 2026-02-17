@@ -11,8 +11,6 @@ import scipy.signal as scipy_signal  # For decoder
 from sklearn.cluster import KMeans  # For decoder
 import sys  
 
-#author: fl4nk3r
-
 # --- Morse Code Dictionaries (Shared) ---
 MORSE_CODE_DICT_ENCODE = {
     'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',

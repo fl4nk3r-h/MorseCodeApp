@@ -9,9 +9,7 @@ import os
 import scipy.io.wavfile as scipy_wav  # For decoder
 import scipy.signal as scipy_signal  # For decoder
 from sklearn.cluster import KMeans  # For decoder
-import sys  
-
-#author: fl4nk3r
+import sys  # 
 
 # --- Morse Code Dictionaries (Shared) ---
 MORSE_CODE_DICT_ENCODE = {
