@@ -174,26 +174,26 @@ Example: 20 WPM → Dot duration = 60 ms
 │           Morse Code Toolkit Application            │
 ├─────────────────────────────────────────────────────┤
 │                                                     │
-│  ┌────────────────────┐   ┌────────────────────┐   │
-│  │  ENCODER TAB       │   │  DECODER TAB       │   │
-│  ├────────────────────┤   ├────────────────────┤   │
-│  │ Text Input         │   │ WAV File Input     │   │
-│  │ Parameter Config   │   │ Signal Config      │   │
-│  │ Preview & Save     │   │ Process & Results  │   │
-│  └────────┬───────────┘   └────────┬───────────┘   │
+│  ┌────────────────────┐   ┌────────────────────┐    │
+│  │  ENCODER TAB       │   │  DECODER TAB       │    │
+│  ├────────────────────┤   ├────────────────────┤    │
+│  │ Text Input         │   │ WAV File Input     │    │
+│  │ Parameter Config   │   │ Signal Config      │    │
+│  │ Preview & Save     │   │ Process & Results  │    │
+│  └────────┬───────────┘   └────────┬───────────┘    │
 │           │                        │                │
 │           ▼                        ▼                │
-│  ┌────────────────────┐   ┌────────────────────┐   │
-│  │ Audio Generation   │   │ Signal Processing  │   │
-│  │ & Playback Engine  │   │ & Decoding Engine  │   │
-│  └────────┬───────────┘   └────────┬───────────┘   │
+│  ┌────────────────────┐   ┌────────────────────┐    │
+│  │ Audio Generation   │   │ Signal Processing  │    │
+│  │ & Playback Engine  │   │ & Decoding Engine  │    │
+│  └────────┬───────────┘   └────────┬───────────┘    │
 │           │                        │                │
 │           ▼                        ▼                │
-│  ┌────────────────────────────────────────────┐    │
-│  │      Audio I/O (PyAudio + Wave)            │    │
-│  │      DSP Pipeline (SciPy + NumPy)          │    │
-│  │      ML (scikit-learn K-means)             │    │
-│  └────────────────────────────────────────────┘    │
+│  ┌────────────────────────────────────────────┐     │
+│  │      Audio I/O (PyAudio + Wave)            │     │
+│  │      DSP Pipeline (SciPy + NumPy)          │     │
+│  │      ML (scikit-learn K-means)             │     │
+│  └────────────────────────────────────────────┘     │
 │                                                     │
 └─────────────────────────────────────────────────────┘
 ```
@@ -238,33 +238,33 @@ Read Audio Data (SciPy)
 Mono Conversion (if stereo)
     ↓
 ┌─► SPECTRAL NOISE REDUCTION ──────────────┐
-│   ├─ STFT decomposition                   │
-│   ├─ Noise floor estimation               │
-│   └─ Gain-based suppression               │
-│                                           │
-└─► Normalized Audio                       │
-    ↓                                       │
+│   ├─ STFT decomposition                  │
+│   ├─ Noise floor estimation              │
+│   └─ Gain-based suppression              │
+│                                          │
+└─► Normalized Audio                       |
+    ↓                                      │
     ├─► FFT Analysis ──────────────────────────┐
     │   ├─ Find dominant frequency             │
     │   └─ Verify in typical Morse range       │
     │                                          │
-    └─► Bandpass Filtering ──────────────┐    │
-        ├─ Design Butterworth filter     │    │
-        └─ Apply forward-backward        │    │
-                                         │    │
-        ↓                                │    │
-        ├─► Envelope Detection ◄─────────┘    │
-        │   ├─ Magnitude of filtered signal   │
-        │   ├─ Median smoothing               │
-        │   └─ Adaptive thresholding          │
-        │                                    │
+    └─► Bandpass Filtering ──────────────┐     │
+        ├─ Design Butterworth filter     │     │
+        └─ Apply forward-backward        │     │
+                                         │     │
+        ↓                                │     │
+        ├─► Envelope Detection ◄─────────┘     │
+        │   ├─ Magnitude of filtered signal    │
+        │   ├─ Median smoothing                │
+        │   └─ Adaptive thresholding           │
+        │                                      │
         └─► Segmentation ──────────────────────┐
             ├─ Find tone/silence transitions   │
-            ├─ Merge short segments           │
-            └─ Extract durations              │
-                                             │
-            ↓                                │
-            ├─► K-Means Clustering ◄─────────┘
+            ├─ Merge short segments            │
+            └─ Extract durations               │
+                                               │
+            ↓                                  │
+            ├─► K-Means Clustering ◄───────────┘
             │   ├─ Cluster tone durations
             │   ├─ Identify dot & dash
             │   └─ Compute thresholds
@@ -301,47 +301,47 @@ Mono Conversion (if stereo)
 │                  MorseCodeApp                        │
 ├──────────────────────────────────────────────────────┤
 │ ATTRIBUTES:                                          │
-│ ├─ master: tk.Tk                                    │
-│ ├─ pyaudio_instance: PyAudio                        │
-│ ├─ encoder_*: playback control variables            │
-│ ├─ decoder_*: decoding state variables              │
-│ ├─ encoder_params: Dict[str, tk.Variable]           │
-│ ├─ decoder_params: Dict[str, tk.Variable]           │
-│ ├─ decoder_results: Dict[str, tk.Widget]            │
-│ ├─ status_var: tk.StringVar                         │
-│ └─ notebook: ttk.Notebook                           │
+│ ├─ master: tk.Tk                                     │
+│ ├─ pyaudio_instance: PyAudio                         │
+│ ├─ encoder_*: playback control variables             │
+│ ├─ decoder_*: decoding state variables               │
+│ ├─ encoder_params: Dict[str, tk.Variable]            │
+│ ├─ decoder_params: Dict[str, tk.Variable]            │
+│ ├─ decoder_results: Dict[str, tk.Widget]             │
+│ ├─ status_var: tk.StringVar                          │
+│ └─ notebook: ttk.Notebook                            │
 ├──────────────────────────────────────────────────────┤
 │ METHODS:                                             │
 │                                                      │
-│ ▶ GUI Building:                                     │
-│ ├─ build_encoder_tab_ui()                           │
-│ ├─ build_decoder_tab_ui()                           │
-│ ├─ add_slider(...)       [UI Helper]                │
-│ └─ add_combobox(...)     [UI Helper]                │
+│ ▶ GUI Building:                                      │
+│ ├─ build_encoder_tab_ui()                            │
+│ ├─ build_decoder_tab_ui()                            │
+│ ├─ add_slider(...)       [UI Helper]                 │
+│ └─ add_combobox(...)     [UI Helper]                 │
 │                                                      │
-│ ▶ Encoder Methods:                                  │
-│ ├─ generate_morse_audio_data() → (audio, sr)        │
-│ ├─ encoder_toggle_play_stop()                       │
-│ ├─ encoder_save_wav()                               │
-│ └─ _encoder_play_thread_target(audio, sr)           │
+│ ▶ Encoder Methods:                                   │
+│ ├─ generate_morse_audio_data() → (audio, sr)         │
+│ ├─ encoder_toggle_play_stop()                        │
+│ ├─ encoder_save_wav()                                │
+│ └─ _encoder_play_thread_target(audio, sr)            │
 │                                                      │
-│ ▶ Decoder Methods:                                  │
-│ ├─ decoder_browse_file()                            │
-│ ├─ decoder_start_decoding()                         │
-│ └─ _decode_processing_thread_target()               │
+│ ▶ Decoder Methods:                                   │
+│ ├─ decoder_browse_file()                             │
+│ ├─ decoder_start_decoding()                          │
+│ └─ _decode_processing_thread_target()                │
 │                                                      │
-│ ▶ DSP Methods (Decoder):                            │
-│ ├─ _spectral_noise_reduction_logic(...)             │
-│ ├─ _bandpass_filter_logic(...)                      │
-│ ├─ _detect_dominant_frequency_logic(...)            │
-│ ├─ _audio_to_morse_decoder_logic(...)               │
-│ └─ _decode_morse_text(morse_str) → str              │
+│ ▶ DSP Methods (Decoder):                             │
+│ ├─ _spectral_noise_reduction_logic(...)              │
+│ ├─ _bandpass_filter_logic(...)                       │
+│ ├─ _detect_dominant_frequency_logic(...)             │
+│ ├─ _audio_to_morse_decoder_logic(...)                │
+│ └─ _decode_morse_text(morse_str) → str               │
 │                                                      │
-│ ▶ Utility Methods:                                  │
-│ ├─ get_param_values(dict) → Dict                    │
-│ ├─ _update_slider_label(...)                        │
-│ ├─ _update_decoder_results(...)                     │
-│ └─ on_closing()                                     │
+│ ▶ Utility Methods:                                   │
+│ ├─ get_param_values(dict) → Dict                     │
+│ ├─ _update_slider_label(...)                         │
+│ ├─ _update_decoder_results(...)                      │
+│ └─ on_closing()                                      │
 └──────────────────────────────────────────────────────┘
 ```
 
