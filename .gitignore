@@ -169,7 +169,7 @@ tmp/
 cache/
 
 #github
-.gitignore/
+.gitignore
 .gitattributes/
 .git/
 .history/
